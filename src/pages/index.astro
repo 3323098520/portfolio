@@ -78,7 +78,6 @@ const wechatUrl = `${base}wechat-contact.png`;
 							<span class="number">0{index + 1}</span>
 							<span class="project-copy">
 								<strong>{project.name}</strong>
-								<small>{project.description}</small>
 							</span>
 							<span class="arrow" aria-hidden="true">↗</span>
 						</a>
@@ -256,9 +255,8 @@ const wechatUrl = `${base}wechat-contact.png`;
 		text-decoration: none;
 	}
 	.number { color: #a08d7f; font-size: 0.75rem; }
-	.project-copy { display: grid; gap: 7px; }
+	.project-copy { display: grid; }
 	.project-copy strong { font-size: 1.12rem; }
-	.project-copy small { color: #7d8182; line-height: 1.55; }
 	.arrow { font-size: 1rem; }
 	.contact-copy { margin: 0 0 8px; color: #7d8182; line-height: 1.7; }
 	.contact-email { display: inline-block; margin-bottom: 24px; }
