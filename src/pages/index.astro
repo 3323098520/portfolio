@@ -71,16 +71,29 @@ const wechatUrl = `${base}wechat-contact.png`;
 						</a>
 					))}
 				</div>
-				<p class="note">以上为模拟项目，后续替换为真实内容。</p>
 			</section>
 
 			<section class="tab-panel" id="about-panel" role="tabpanel" aria-labelledby="about-tab" hidden>
 				<h2>关于</h2>
 				<dl class="info-list">
-					<div><dt>姓名</dt><dd>Liu Yuanze</dd></div>
+					<div><dt>Name</dt><dd>Liu Yuanze</dd></div>
 					<div><dt>Interest</dt><dd>产品　运营　策划</dd></div>
-					<div><dt>邮箱</dt><dd><a class="email" href="mailto:3323098520@qq.com">3323098520@qq.com</a></dd></div>
+					<div><dt>Mail</dt><dd><a class="email" href="mailto:3323098520@qq.com">3323098520@qq.com</a></dd></div>
 				</dl>
+				<div class="about-extra">
+					<section>
+						<h3>Resume</h3>
+						<p>待补充</p>
+					</section>
+					<section>
+						<h3>Visited city</h3>
+						<p>待补充</p>
+					</section>
+					<section>
+						<h3>Label</h3>
+						<p>待补充</p>
+					</section>
+				</div>
 			</section>
 
 			<section class="tab-panel contact-panel" id="contact-panel" role="tabpanel" aria-labelledby="contact-tab" hidden>
@@ -173,7 +186,7 @@ const wechatUrl = `${base}wechat-contact.png`;
 		letter-spacing: 0.16em;
 	}
 
-	h1, h2, strong { font-family: Georgia, "Songti SC", "SimSun", serif; }
+	h1, h2, h3, strong { font-family: Georgia, "Songti SC", "SimSun", serif; }
 	h1 { margin: 0; color: #3e4346; font-size: clamp(2.3rem, 8vw, 3.8rem); letter-spacing: -0.04em; }
 	.intro { margin: 10px 0 0; color: #858887; }
 	.github { padding: 8px 10px; border: 1px solid #d7d7d3; color: #626668; font-size: 0.82rem; text-decoration: none; }
@@ -207,6 +220,10 @@ const wechatUrl = `${base}wechat-contact.png`;
 	dd { margin: 0; color: #999b9b; font-size: 0.86rem; }
 	.email { color: #626668; text-decoration: none; }
 	.email:hover { color: #7b5840; text-decoration: underline; }
+	.about-extra { margin-top: 32px; }
+	.about-extra section { padding: 0 0 24px; margin-bottom: 24px; border-bottom: 1px solid #e4e3df; }
+	.about-extra h3 { margin: 0 0 12px; color: #44494c; font-size: 1.08rem; }
+	.about-extra p { margin: 0; color: #999b9b; font-size: 0.86rem; }
 
 	.project-list { border-top: 1px solid #dcdcd8; }
 	.project {
@@ -224,7 +241,6 @@ const wechatUrl = `${base}wechat-contact.png`;
 	.project-copy strong { font-size: 1.12rem; }
 	.project-copy small { color: #7d8182; line-height: 1.55; }
 	.arrow { font-size: 1rem; }
-	.note { margin: 14px 0 0; color: #9b9d9c; font-size: 0.75rem; }
 	.contact-copy { margin: 0 0 8px; color: #7d8182; line-height: 1.7; }
 	.contact-email { display: inline-block; margin-bottom: 24px; }
 	figure { width: min(360px, 100%); margin: 0; }
