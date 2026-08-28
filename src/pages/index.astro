@@ -12,6 +12,18 @@ const projects = [
   },
 ];
 
+const labels = ['测绘', '地信', '遥感', '荒野行者', '股市小白'];
+
+const visitedCities = [
+  '北京市', '运城市', '延安市', '晋中市', '临汾市', '晋城市', '忻州市', '石家庄市',
+  '济宁市', '临沂市', '枣庄市', '汉中市', '陇南市', '甘南藏族自治州', '阿坝藏族羌族自治州',
+  '香港特别行政区', '深圳市', '开封市', '郑州市', '洛阳市', '扬州市', '南京市', '苏州市',
+  '淮安市', '台州市', '泰州市', '上饶市', '咸宁市', '武汉市', '黄石市', '宜昌市', '重庆市',
+  '连云港市', '宿州市', '阜阳市', '海西蒙古族藏族自治州', '酒泉市', '张掖市', '海北藏族自治州',
+  '西宁市', '海东市', '兰州市', '西安市', '淮北市', '徐州市', '泰安市', '杭州市', '六安市',
+  '合肥市', '青岛市', '南昌市', '萍乡市', '长沙市', '新乡市',
+];
+
 const siteUrl = 'https://3323098520.github.io/portfolio/';
 const ogImage = `${siteUrl}og.png`;
 const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
@@ -87,11 +99,13 @@ const wechatUrl = `${base}wechat-contact.png`;
 					</section>
 					<section>
 						<h3>Visited city</h3>
-						<p>待补充</p>
+						<p class="city-list">{visitedCities.join('、')}</p>
 					</section>
 					<section>
 						<h3>Label</h3>
-						<p>待补充</p>
+						<div class="tag-list">
+							{labels.map((label) => <span>{label}</span>)}
+						</div>
 					</section>
 				</div>
 			</section>
@@ -224,6 +238,9 @@ const wechatUrl = `${base}wechat-contact.png`;
 	.about-extra section { padding: 0 0 24px; margin-bottom: 24px; border-bottom: 1px solid #e4e3df; }
 	.about-extra h3 { margin: 0 0 12px; color: #44494c; font-size: 1.08rem; }
 	.about-extra p { margin: 0; color: #999b9b; font-size: 0.86rem; }
+	.about-extra .city-list { color: #676c6e; line-height: 1.9; }
+	.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+	.tag-list span { padding: 5px 9px; border: 1px solid #d9d8d4; color: #676c6e; font-size: 0.8rem; }
 
 	.project-list { border-top: 1px solid #dcdcd8; }
 	.project {
