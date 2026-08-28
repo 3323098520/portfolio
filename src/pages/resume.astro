@@ -1,0 +1,124 @@
+---
+import resumeDocument from '../content/resume.html?raw';
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+const resumeStyles = resumeDocument.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '';
+const resumeMarkup = (resumeDocument.match(/<article[\s\S]*?<\/article>/)?.[0] ?? '')
+	.replace(/\scontenteditable="[^"]*"/g, '')
+	.replace(/\sdraggable="[^"]*"/g, '');
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="Liu Yuanze 的个人简历" />
+		<meta name="robots" content="noindex, noarchive" />
+		<title>Resume｜Liu Yuanze</title>
+		<style is:inline set:html={resumeStyles}></style>
+	</head>
+	<body>
+		<header class="viewer-header">
+			<a href={base}>← 返回个人主页</a>
+			<span>Resume · Liu Yuanze</span>
+		</header>
+		<main class="viewer-main">
+			<div class="resume-shell">
+				<div class="resume-scale">
+					<Fragment set:html={resumeMarkup} />
+				</div>
+			</div>
+		</main>
+	</body>
+</html>
+
+<script>
+	const shell = document.querySelector('.resume-shell');
+	const scaleWrap = document.querySelector('.resume-scale');
+	const resumeWidth = 794;
+	const resumeHeight = 1123;
+
+	const blockCopy = (event) => event.preventDefault();
+	const blockShortcut = (event) => {
+		if ((event.ctrlKey || event.metaKey) && ['a', 'c', 'p', 's', 'u'].includes(event.key.toLowerCase())) {
+			event.preventDefault();
+		}
+	};
+
+	['copy', 'cut', 'contextmenu', 'dragstart', 'selectstart'].forEach((name) => {
+		document.addEventListener(name, blockCopy);
+	});
+	document.addEventListener('keydown', blockShortcut);
+
+	const resizeResume = () => {
+		if (!(shell instanceof HTMLElement) || !(scaleWrap instanceof HTMLElement)) return;
+		const scale = Math.min(1, shell.clientWidth / resumeWidth);
+		scaleWrap.style.setProperty('--resume-scale', String(scale));
+		scaleWrap.style.height = `${resumeHeight * scale}px`;
+	};
+
+	resizeResume();
+	new ResizeObserver(resizeResume).observe(document.body);
+</script>
+
+<style>
+	:global(*) {
+		box-sizing: border-box;
+		user-select: none !important;
+		-webkit-user-select: none !important;
+	}
+	:global(html) { background: #ecefed; }
+	:global(body) {
+		margin: 0;
+		padding: 0 !important;
+		min-width: 320px;
+		color: #303536;
+		font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+		background: #ecefed;
+	}
+	.viewer-header {
+		position: sticky;
+		top: 0;
+		z-index: 5;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px;
+		min-height: 56px;
+		padding: 12px max(18px, calc((100vw - 900px) / 2));
+		color: #fff;
+		background: #132229;
+		box-shadow: 0 2px 16px #0002;
+	}
+	.viewer-header a { color: #fff; text-decoration: none; }
+	.viewer-header a:hover { color: #c7d7dd; }
+	.viewer-header span { color: #c7d7dd; font-size: 0.88rem; }
+	.viewer-main { padding: 28px 16px 48px; }
+	.resume-shell { width: min(794px, 100%); margin: 0 auto; }
+	.resume-scale {
+		--resume-scale: 1;
+		width: 794px;
+		height: 1123px;
+		background: #fff;
+		transform: scale(var(--resume-scale));
+		transform-origin: top left;
+		box-shadow: 0 16px 50px #1b2b3328;
+	}
+	.resume-scale :global(.resume) {
+		width: 794px;
+		height: 1123px;
+		background: #fff;
+		outline: none !important;
+	}
+	.resume-scale :global(.section-controls),
+	.resume-scale :global(.entry-controls),
+	.resume-scale :global(.section-add-controls) { display: none !important; }
+	@media (max-width: 540px) {
+		.viewer-header span { display: none; }
+		.viewer-main { padding: 14px 8px 30px; }
+	}
+	@media print {
+		:global(body) { display: none !important; }
+	}
+</style>
