@@ -1,64 +1,149 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { projects } from '../data/projects';
-const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+const projects = [
+  {
+    name: '模拟项目一',
+    description: '用于展示项目介绍和外部访问链接的示例。',
+    url: 'https://3323098520.github.io/',
+  },
+  {
+    name: '模拟项目二',
+    description: '项目内容确认后，可直接替换名称、说明和链接。',
+    url: 'https://github.com/3323098520?tab=repositories',
+  },
+];
+
+const siteUrl = 'https://3323098520.github.io/portfolio/';
+const ogImage = `${siteUrl}og.png`;
 ---
 
-<BaseLayout active="首页">
-	<div class="page-grid">
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="个人基本信息与项目链接展示。" />
+		<link rel="canonical" href={siteUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="个人主页" />
+		<meta property="og:description" content="个人基本信息与项目链接展示。" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="个人主页" />
+		<meta name="twitter:description" content="个人基本信息与项目链接展示。" />
+		<meta name="twitter:image" content={ogImage} />
+		<title>个人主页</title>
+	</head>
+	<body>
 		<main>
-			<section class="intro" aria-labelledby="intro-title">
-				<p class="eyebrow">PORTFOLIO · 2026</p>
-				<h1 id="intro-title">你好，这里是我的个人作品集。</h1>
-				<p>这里将用于展示我的代表项目、工作方法和求职相关信息。个人介绍与求职方向将在资料确认后补充。</p>
-			</section>
-
-			<section id="projects" class="section" aria-labelledby="projects-title">
-				<div class="section-heading">
-					<h2 id="projects-title">精选项目</h2>
-					<span>待补充 2–4 个项目</span>
+			<header>
+				<div>
+					<p class="label">PERSONAL PAGE</p>
+					<h1>3323098520</h1>
+					<p class="intro">个人介绍待补充。</p>
 				</div>
-				{projects.map((project) => (
-					<article class="project-row">
-						<div class="project-meta">项目 {project.order}</div>
-						<div>
-							<h3>{project.title}</h3>
-							<p>{project.summary}</p>
-							<ul class="tags" aria-label="项目标签">
-								{project.tags.map((tag) => <li>{tag}</li>)}
-							</ul>
-						</div>
-						<a class="detail-link" href={`${base}projects/${project.slug}/`}>查看模板 →</a>
-					</article>
-				))}
+				<a class="github" href="https://github.com/3323098520" target="_blank" rel="noreferrer">GitHub ↗</a>
+			</header>
+
+			<section aria-labelledby="info-title">
+				<h2 id="info-title">基本信息</h2>
+				<dl class="info-list">
+					<div><dt>姓名</dt><dd>待补充</dd></div>
+					<div><dt>求职方向</dt><dd>待补充</dd></div>
+					<div><dt>联系方式</dt><dd>待补充</dd></div>
+				</dl>
 			</section>
 
-			<section id="experience" class="section compact-section" aria-labelledby="experience-title">
-				<h2 id="experience-title">经历</h2>
-				<p>教育与实践经历待补充。</p>
+			<section aria-labelledby="projects-title">
+				<h2 id="projects-title">项目</h2>
+				<div class="project-list">
+					{projects.map((project, index) => (
+						<a class="project" href={project.url} target="_blank" rel="noreferrer">
+							<span class="number">0{index + 1}</span>
+							<span class="project-copy">
+								<strong>{project.name}</strong>
+								<small>{project.description}</small>
+							</span>
+							<span class="arrow" aria-hidden="true">↗</span>
+						</a>
+					))}
+				</div>
+				<p class="note">以上为模拟项目，后续替换为真实内容。</p>
 			</section>
+
+			<footer>© 2026 · 个人主页</footer>
 		</main>
+	</body>
+</html>
 
-		<aside aria-label="个人信息">
-			<section id="about" class="side-section">
-				<p class="side-label">关于我</p>
-				<div class="avatar-placeholder" aria-hidden="true">未设置照片</div>
-				<h2>个人信息待补充</h2>
-				<p>求职方向、所在城市与个人简介将在确认后显示。</p>
-			</section>
-			<section class="side-section">
-				<p class="side-label">核心能力</p>
-				<ul class="skill-list">
-					<li>能力方向待补充</li>
-					<li>工具与方法待补充</li>
-				</ul>
-			</section>
-			<section id="resume" class="side-section">
-				<p class="side-label">联系与简历</p>
-				<a href="https://github.com/3323098520">GitHub</a>
-				<span class="pending-link">邮箱待补充</span>
-				<span class="pending-link">PDF 简历待上传</span>
-			</section>
-		</aside>
-	</div>
-</BaseLayout>
+<style>
+	:global(*) { box-sizing: border-box; }
+	:global(body) {
+		margin: 0;
+		color: #44494c;
+		background: #fdfdfb;
+		font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+	}
+
+	main {
+		width: min(760px, calc(100% - 40px));
+		margin: 0 auto;
+		padding: 72px 0 40px;
+	}
+
+	header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 28px;
+		padding-bottom: 40px;
+		border-bottom: 1px solid #dadad6;
+	}
+
+	.label {
+		margin: 0 0 12px;
+		color: #8e745f;
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+	}
+
+	h1, h2, strong { font-family: Georgia, "Songti SC", "SimSun", serif; }
+	h1 { margin: 0; color: #3e4346; font-size: clamp(2.3rem, 8vw, 3.8rem); letter-spacing: -0.04em; }
+	.intro { margin: 10px 0 0; color: #858887; }
+	.github { padding: 8px 10px; border: 1px solid #d7d7d3; color: #626668; font-size: 0.82rem; text-decoration: none; }
+	.github:hover, .project:hover { color: #7b5840; border-color: #bba28f; }
+
+	section { padding: 36px 0 6px; }
+	h2 { margin: 0 0 20px; color: #44494c; font-size: 1.25rem; }
+	.info-list { margin: 0; }
+	.info-list div { display: grid; grid-template-columns: 110px 1fr; padding: 13px 0; border-bottom: 1px solid #e4e3df; }
+	dt { color: #777b7c; font-size: 0.86rem; }
+	dd { margin: 0; color: #999b9b; font-size: 0.86rem; }
+
+	.project-list { border-top: 1px solid #dcdcd8; }
+	.project {
+		display: grid;
+		grid-template-columns: 46px 1fr auto;
+		gap: 16px;
+		align-items: center;
+		padding: 22px 0;
+		border-bottom: 1px solid #dcdcd8;
+		color: inherit;
+		text-decoration: none;
+	}
+	.number { color: #a08d7f; font-size: 0.75rem; }
+	.project-copy { display: grid; gap: 7px; }
+	.project-copy strong { font-size: 1.12rem; }
+	.project-copy small { color: #7d8182; line-height: 1.55; }
+	.arrow { font-size: 1rem; }
+	.note { margin: 14px 0 0; color: #9b9d9c; font-size: 0.75rem; }
+	footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #dadad6; color: #a0a19f; font-size: 0.75rem; }
+
+	@media (max-width: 560px) {
+		main { width: min(100% - 28px, 760px); padding-top: 38px; }
+		header { flex-direction: column; padding-bottom: 30px; }
+		.info-list div { grid-template-columns: 90px 1fr; }
+		.project { grid-template-columns: 34px 1fr auto; gap: 10px; }
+	}
+</style>
