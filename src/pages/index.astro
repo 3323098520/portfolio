@@ -14,6 +14,8 @@ const projects = [
 
 const siteUrl = 'https://3323098520.github.io/portfolio/';
 const ogImage = `${siteUrl}og.png`;
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+const avatarUrl = `${base}avatar.jpg`;
 ---
 
 <!doctype html>
@@ -37,10 +39,13 @@ const ogImage = `${siteUrl}og.png`;
 	<body>
 		<main>
 			<header>
-				<div>
-					<p class="label">PERSONAL PAGE</p>
-					<h1>3323098520</h1>
-					<p class="intro">个人介绍待补充。</p>
+				<div class="identity">
+					<img class="avatar" src={avatarUrl} alt="暮春十九的微信头像" width="940" height="940" />
+					<div>
+						<p class="label">PERSONAL PAGE</p>
+						<h1>暮春十九✨</h1>
+						<p class="intro">个人介绍待补充。</p>
+					</div>
 				</div>
 				<a class="github" href="https://github.com/3323098520" target="_blank" rel="noreferrer">GitHub ↗</a>
 			</header>
@@ -48,9 +53,9 @@ const ogImage = `${siteUrl}og.png`;
 			<section aria-labelledby="info-title">
 				<h2 id="info-title">基本信息</h2>
 				<dl class="info-list">
-					<div><dt>姓名</dt><dd>待补充</dd></div>
+					<div><dt>昵称</dt><dd>暮春十九✨</dd></div>
 					<div><dt>求职方向</dt><dd>待补充</dd></div>
-					<div><dt>联系方式</dt><dd>待补充</dd></div>
+					<div><dt>邮箱</dt><dd><a class="email" href="mailto:3323098520@qq.com">3323098520@qq.com</a></dd></div>
 				</dl>
 			</section>
 
@@ -100,6 +105,20 @@ const ogImage = `${siteUrl}og.png`;
 		border-bottom: 1px solid #dadad6;
 	}
 
+	.identity {
+		display: flex;
+		align-items: center;
+		gap: 22px;
+	}
+
+	.avatar {
+		width: 92px;
+		height: 92px;
+		border: 1px solid #d7d7d3;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
 	.label {
 		margin: 0 0 12px;
 		color: #8e745f;
@@ -120,6 +139,8 @@ const ogImage = `${siteUrl}og.png`;
 	.info-list div { display: grid; grid-template-columns: 110px 1fr; padding: 13px 0; border-bottom: 1px solid #e4e3df; }
 	dt { color: #777b7c; font-size: 0.86rem; }
 	dd { margin: 0; color: #999b9b; font-size: 0.86rem; }
+	.email { color: #626668; text-decoration: none; }
+	.email:hover { color: #7b5840; text-decoration: underline; }
 
 	.project-list { border-top: 1px solid #dcdcd8; }
 	.project {
@@ -143,6 +164,8 @@ const ogImage = `${siteUrl}og.png`;
 	@media (max-width: 560px) {
 		main { width: min(100% - 28px, 760px); padding-top: 38px; }
 		header { flex-direction: column; padding-bottom: 30px; }
+		.identity { align-items: flex-start; gap: 16px; }
+		.avatar { width: 74px; height: 74px; }
 		.info-list div { grid-template-columns: 90px 1fr; }
 		.project { grid-template-columns: 34px 1fr auto; gap: 10px; }
 	}
