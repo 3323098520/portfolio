@@ -1,16 +1,7 @@
 ---
-const projects = [
-  {
-    name: '模拟项目一',
-    description: '用于展示项目介绍和外部访问链接的示例。',
-    url: 'https://3323098520.github.io/',
-  },
-  {
-    name: '模拟项目二',
-    description: '项目内容确认后，可直接替换名称、说明和链接。',
-    url: 'https://github.com/3323098520?tab=repositories',
-  },
-];
+import { projects } from '../data/projects';
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
 
 const labels = ['测绘', '地信', '遥感', '荒野行者', '股市小白'];
 
@@ -37,7 +28,6 @@ const visitedCities = [
 
 const siteUrl = 'https://3323098520.github.io/portfolio/';
 const ogImage = `${siteUrl}og.png`;
-const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
 const avatarUrl = `${base}avatar.jpg`;
 const wechatUrl = `${base}wechat-contact.png`;
 ---
@@ -84,7 +74,7 @@ const wechatUrl = `${base}wechat-contact.png`;
 				<h2 id="projects-title">项目</h2>
 				<div class="project-list">
 					{projects.map((project, index) => (
-						<a class="project" href={project.url} target="_blank" rel="noreferrer">
+						<a class="project" href={`${base}projects/${project.slug}/`}>
 							<span class="number">0{index + 1}</span>
 							<span class="project-copy">
 								<strong>{project.name}</strong>
