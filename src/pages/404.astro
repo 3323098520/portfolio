@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+---
+
+<BaseLayout title="页面未找到｜个人作品集" description="所访问的页面不存在。" includeOgImage={false}>
+	<main class="empty-page">
+		<p class="eyebrow">404</p>
+		<h1>这里暂时没有内容。</h1>
+		<p>页面可能已被移动，或者项目资料尚未补充。</p>
+		<a class="detail-link" href={base}>返回首页 →</a>
+	</main>
+</BaseLayout>

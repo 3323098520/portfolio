@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	active?: '首页' | '项目';
+	includeOgImage?: boolean;
+}
+
+const {
+	title = '个人作品集',
+	description = '个人项目、作品集与求职信息展示。',
+	active = '首页',
+	includeOgImage = true,
+} = Astro.props;
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const ogImage = Astro.site ? new URL(`${base}og.png`, Astro.site) : undefined;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		{includeOgImage && ogImage && <meta property="og:image" content={ogImage} />}
+		<meta name="twitter:card" content={includeOgImage ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{includeOgImage && ogImage && <meta name="twitter:image" content={ogImage} />}
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="site-shell">
+			<header class="site-header">
+				<div class="brand">
+					<a href={base}>个人作品集</a>
+					<p>项目、经历与专业能力展示</p>
+				</div>
+				<nav aria-label="主导航">
+					<a class:list={{ active: active === '首页' }} href={base}>首页</a>
+					<a class:list={{ active: active === '项目' }} href={`${base}#projects`}>项目</a>
+					<a href={`${base}#experience`}>经历</a>
+					<a href={`${base}#about`}>关于</a>
+					<a href={`${base}#resume`}>简历</a>
+				</nav>
+			</header>
+			<slot />
+			<footer>
+				<span>© 2026 个人作品集</span>
+				<a href="https://github.com/3323098520">GitHub</a>
+			</footer>
+		</div>
+	</body>
+</html>

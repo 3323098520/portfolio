@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { projects } from '../data/projects';
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
+---
+
+<BaseLayout active="首页">
+	<div class="page-grid">
+		<main>
+			<section class="intro" aria-labelledby="intro-title">
+				<p class="eyebrow">PORTFOLIO · 2026</p>
+				<h1 id="intro-title">你好，这里是我的个人作品集。</h1>
+				<p>这里将用于展示我的代表项目、工作方法和求职相关信息。个人介绍与求职方向将在资料确认后补充。</p>
+			</section>
+
+			<section id="projects" class="section" aria-labelledby="projects-title">
+				<div class="section-heading">
+					<h2 id="projects-title">精选项目</h2>
+					<span>待补充 2–4 个项目</span>
+				</div>
+				{projects.map((project) => (
+					<article class="project-row">
+						<div class="project-meta">项目 {project.order}</div>
+						<div>
+							<h3>{project.title}</h3>
+							<p>{project.summary}</p>
+							<ul class="tags" aria-label="项目标签">
+								{project.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						</div>
+						<a class="detail-link" href={`${base}projects/${project.slug}/`}>查看模板 →</a>
+					</article>
+				))}
+			</section>
+
+			<section id="experience" class="section compact-section" aria-labelledby="experience-title">
+				<h2 id="experience-title">经历</h2>
+				<p>教育与实践经历待补充。</p>
+			</section>
+		</main>
+
+		<aside aria-label="个人信息">
+			<section id="about" class="side-section">
+				<p class="side-label">关于我</p>
+				<div class="avatar-placeholder" aria-hidden="true">未设置照片</div>
+				<h2>个人信息待补充</h2>
+				<p>求职方向、所在城市与个人简介将在确认后显示。</p>
+			</section>
+			<section class="side-section">
+				<p class="side-label">核心能力</p>
+				<ul class="skill-list">
+					<li>能力方向待补充</li>
+					<li>工具与方法待补充</li>
+				</ul>
+			</section>
+			<section id="resume" class="side-section">
+				<p class="side-label">联系与简历</p>
+				<a href="https://github.com/3323098520">GitHub</a>
+				<span class="pending-link">邮箱待补充</span>
+				<span class="pending-link">PDF 简历待上传</span>
+			</section>
+		</aside>
+	</div>
+</BaseLayout>
