@@ -7,4 +7,8 @@ export const projects = [
     slug: 'campuspath',
     name: 'CampusPath校园空间通 智能导航Agent',
   },
+  {
+    slug: 'ard-remote-sensing-cube',
+    name: '多数据中心ARD遥感立方体协同处理平台',
+  },
 ] as const;
