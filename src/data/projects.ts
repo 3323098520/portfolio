@@ -6,6 +6,7 @@ export const projects = [
   {
     slug: 'campuspath',
     name: 'CampusPath校园空间通 智能导航Agent',
+    image: 'projects/campuspath-main.png',
   },
   {
     slug: 'ard-remote-sensing-cube',
