@@ -12,11 +12,11 @@ type Project = (typeof projects)[number];
 const { project, number } = Astro.props as { project: Project; number: number };
 const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
 const pageUrl = `https://3323098520.github.io${base}projects/${project.slug}/`;
-const projectImage = 'image' in project ? `${base}${project.image}` : undefined;
-const projectImageUrl = projectImage ? `https://3323098520.github.io${projectImage}` : undefined;
-const projectImageAlt = 'imageAlt' in project ? project.imageAlt : '';
-const projectImageWidth = 'imageWidth' in project ? project.imageWidth : undefined;
-const projectImageHeight = 'imageHeight' in project ? project.imageHeight : undefined;
+const projectImages = project.images.map((image) => ({
+	...image,
+	src: `${base}${image.src}`,
+}));
+const primaryImageUrl = `https://3323098520.github.io${projectImages[0].src}`;
 const pageDescription = `${project.name}。具体内容后续再补，敬请期待。`;
 ---
 
@@ -31,11 +31,11 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 		<meta property="og:title" content={project.name} />
 		<meta property="og:description" content={pageDescription} />
 		<meta property="og:url" content={pageUrl} />
-		{projectImageUrl && <meta property="og:image" content={projectImageUrl} />}
-		<meta name="twitter:card" content={projectImageUrl ? 'summary_large_image' : 'summary'} />
+		<meta property="og:image" content={primaryImageUrl} />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={project.name} />
 		<meta name="twitter:description" content={pageDescription} />
-		{projectImageUrl && <meta name="twitter:image" content={projectImageUrl} />}
+		<meta name="twitter:image" content={primaryImageUrl} />
 		<title>{project.name}｜暮春十九✨</title>
 	</head>
 	<body>
@@ -43,15 +43,34 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 			<a class="back" href={`${base}#home`}>← 返回首页</a>
 			<p class="label">PROJECT 0{number}</p>
 			<h1>{project.name}</h1>
-			{projectImage && (
-				<figure>
-					<img src={projectImage} alt={projectImageAlt} width={projectImageWidth} height={projectImageHeight} />
-				</figure>
-			)}
+			<div class="project-gallery" aria-label="项目图片">
+				{projectImages.map((image) => (
+					<figure>
+						<div class="protected-image">
+							<img src={image.src} alt={image.alt} width={image.width} height={image.height} draggable="false" />
+						</div>
+					</figure>
+				))}
+			</div>
 			<p class="coming-soon">具体内容后续再补，敬请期待。</p>
 		</main>
 	</body>
 </html>
+
+<script>
+	const protectedImages = document.querySelectorAll('.protected-image');
+	protectedImages.forEach((container) => {
+		['contextmenu', 'dragstart', 'copy', 'cut', 'selectstart'].forEach((eventName) => {
+			container.addEventListener(eventName, (event) => event.preventDefault());
+		});
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if ((event.ctrlKey || event.metaKey) && ['p', 's', 'u'].includes(event.key.toLowerCase())) {
+			event.preventDefault();
+		}
+	});
+</script>
 
 <style>
 	:global(*) { box-sizing: border-box; }
@@ -61,8 +80,12 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 	.back:hover { color: #7b5840; }
 	.label { margin: 0 0 14px; color: #8e745f; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; }
 	h1 { max-width: 680px; margin: 0; color: #3e4346; font-family: Georgia, "Songti SC", "SimSun", serif; font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.3; }
-	figure { margin: 40px 0 0; }
-	figure img { display: block; width: 100%; height: auto; border: 1px solid #dadad6; border-radius: 8px; box-shadow: 0 14px 38px rgb(56 64 61 / 10%); }
+	.project-gallery { display: grid; gap: 32px; margin-top: 40px; }
+	figure { margin: 0; }
+	.protected-image { position: relative; overflow: hidden; border: 1px solid #dadad6; border-radius: 8px; box-shadow: 0 14px 38px rgb(56 64 61 / 10%); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+	.protected-image::after { content: "仅供作品集展示 · 禁止转载"; position: absolute; right: 12px; bottom: 10px; padding: 5px 9px; border-radius: 4px; color: rgb(255 255 255 / 88%); background: rgb(20 28 31 / 48%); font-size: 0.68rem; letter-spacing: 0.06em; pointer-events: none; }
+	.protected-image img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
 	.coming-soon { margin: 30px 0 0; padding-top: 24px; border-top: 1px solid #dadad6; color: #858887; line-height: 1.8; }
+	@media print { .project-gallery { display: none; } }
 	@media (max-width: 560px) { main { width: min(100% - 28px, 760px); padding-top: 38px; } .back { margin-bottom: 48px; } }
 </style>
