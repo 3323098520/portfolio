@@ -14,6 +14,10 @@ const base = `${import.meta.env.BASE_URL}/`.replace(/\/{2,}/g, '/');
 const pageUrl = `https://3323098520.github.io${base}projects/${project.slug}/`;
 const projectImage = 'image' in project ? `${base}${project.image}` : undefined;
 const projectImageUrl = projectImage ? `https://3323098520.github.io${projectImage}` : undefined;
+const projectImageAlt = 'imageAlt' in project ? project.imageAlt : '';
+const projectImageWidth = 'imageWidth' in project ? project.imageWidth : undefined;
+const projectImageHeight = 'imageHeight' in project ? project.imageHeight : undefined;
+const pageDescription = `${project.name}。具体内容后续再补，敬请期待。`;
 ---
 
 <!doctype html>
@@ -21,9 +25,17 @@ const projectImageUrl = projectImage ? `https://3323098520.github.io${projectIma
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content={`${project.name}。具体内容后续再补，敬请期待。`} />
+		<meta name="description" content={pageDescription} />
 		<link rel="canonical" href={pageUrl} />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={project.name} />
+		<meta property="og:description" content={pageDescription} />
+		<meta property="og:url" content={pageUrl} />
 		{projectImageUrl && <meta property="og:image" content={projectImageUrl} />}
+		<meta name="twitter:card" content={projectImageUrl ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:title" content={project.name} />
+		<meta name="twitter:description" content={pageDescription} />
+		{projectImageUrl && <meta name="twitter:image" content={projectImageUrl} />}
 		<title>{project.name}｜暮春十九✨</title>
 	</head>
 	<body>
@@ -33,7 +45,7 @@ const projectImageUrl = projectImage ? `https://3323098520.github.io${projectIma
 			<h1>{project.name}</h1>
 			{projectImage && (
 				<figure>
-					<img src={projectImage} alt="CampusPath 校园空间通智能导航 Agent 主界面" width="1917" height="953" />
+					<img src={projectImage} alt={projectImageAlt} width={projectImageWidth} height={projectImageHeight} />
 				</figure>
 			)}
 			<p class="coming-soon">具体内容后续再补，敬请期待。</p>
