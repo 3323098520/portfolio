@@ -43,7 +43,7 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 			<a class="back" href={`${base}#home`}>← 返回首页</a>
 			<p class="label">PROJECT 0{number}</p>
 			<h1>{project.name}</h1>
-			<div class="project-gallery" aria-label="项目图片">
+			<div class="project-gallery" data-project={project.slug} aria-label="项目图片">
 				{projectImages.map((image) => (
 					<figure>
 						<div class="protected-image">
@@ -81,6 +81,10 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 	.label { margin: 0 0 14px; color: #8e745f; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; }
 	h1 { max-width: 680px; margin: 0; color: #3e4346; font-family: Georgia, "Songti SC", "SimSun", serif; font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.3; }
 	.project-gallery { display: grid; gap: 32px; margin-top: 40px; }
+	@media (min-width: 700px) {
+		.project-gallery[data-project="field-pest-monitoring"] { grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr); gap: 16px; }
+		.project-gallery[data-project="field-pest-monitoring"] figure:first-child { grid-row: 1 / span 2; }
+	}
 	figure { margin: 0; }
 	.protected-image { position: relative; overflow: hidden; border: 1px solid #dadad6; border-radius: 8px; box-shadow: 0 14px 38px rgb(56 64 61 / 10%); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 	.protected-image::after { content: "仅供作品集展示 · 禁止转载"; position: absolute; right: 12px; bottom: 10px; padding: 5px 9px; border-radius: 4px; color: rgb(255 255 255 / 88%); background: rgb(20 28 31 / 48%); font-size: 0.68rem; letter-spacing: 0.06em; pointer-events: none; }

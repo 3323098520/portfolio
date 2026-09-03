@@ -4,10 +4,22 @@ export const projects = [
     name: '大田重大病虫害智能监测预警平台｜挑战杯国银项目',
     images: [
       {
+        src: 'projects/field-project-poster.png',
+        alt: '大田重大病虫害智能监测预警平台项目封面',
+        width: 547,
+        height: 780,
+      },
+      {
         src: 'projects/field-pest-monitoring-main.png',
         alt: '大田重大病虫害智能监测预警平台主界面',
         width: 666,
         height: 392,
+      },
+      {
+        src: 'projects/field-dashboard-collage.png',
+        alt: '大田重大病虫害智能监测预警平台功能界面合集',
+        width: 1304,
+        height: 696,
       },
     ],
   },
