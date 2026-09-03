@@ -74,7 +74,7 @@ const wechatUrl = `${base}wechat-contact.png`;
 				<h2 id="projects-title">项目</h2>
 				<div class="project-list">
 					{projects.map((project, index) => (
-						<a class="project" href={`${base}projects/${project.slug}/`}>
+						<a class="project" href={'externalUrl' in project ? project.externalUrl : `${base}projects/${project.slug}/`}>
 							<span class="number">0{index + 1}</span>
 							<span class="project-copy">
 								<strong>{project.name}</strong>

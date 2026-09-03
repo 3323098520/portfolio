@@ -53,4 +53,10 @@ export const projects = [
       },
     ],
   },
+  {
+    slug: 'game-design',
+    name: 'Game design',
+    externalUrl: 'https://github.com/3323098520/game-design-portfolio',
+    images: [],
+  },
 ] as const;

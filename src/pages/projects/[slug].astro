@@ -2,7 +2,7 @@
 import { projects } from '../../data/projects';
 
 export function getStaticPaths() {
-	return projects.map((project, index) => ({
+	return projects.filter((project) => !('externalUrl' in project)).map((project, index) => ({
 		params: { slug: project.slug },
 		props: { project, number: index + 1 },
 	}));
