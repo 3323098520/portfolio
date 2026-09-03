@@ -17,7 +17,8 @@ const projectImages = project.images.map((image) => ({
 	src: `${base}${image.src}`,
 }));
 const primaryImageUrl = `https://3323098520.github.io${projectImages[0].src}`;
-const pageDescription = `${project.name}。具体内容后续再补，敬请期待。`;
+const showComingSoon = project.slug !== 'field-pest-monitoring';
+const pageDescription = showComingSoon ? `${project.name}。具体内容后续再补，敬请期待。` : project.name;
 ---
 
 <!doctype html>
@@ -52,7 +53,7 @@ const pageDescription = `${project.name}。具体内容后续再补，敬请期�
 					</figure>
 				))}
 			</div>
-			<p class="coming-soon">具体内容后续再补，敬请期待。</p>
+			{showComingSoon && <p class="coming-soon">具体内容后续再补，敬请期待。</p>}
 		</main>
 	</body>
 </html>
