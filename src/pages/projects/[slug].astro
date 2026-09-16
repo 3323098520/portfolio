@@ -52,7 +52,7 @@ const pageDescription = 'description' in project
 				{'description' in project && <p class="project-intro">{project.description}</p>}
 				{'demoUrl' in project && 'repositoryUrl' in project && (
 					<nav class="project-actions" aria-label="Game design 项目链接">
-						<a class="primary-action" href={project.demoUrl}>试玩五关 Demo ↗</a>
+						<a class="primary-action" href={project.demoUrl}>体验 Demo ↗</a>
 						<a href={project.repositoryUrl}>查看 GitHub 仓库 ↗</a>
 					</nav>
 				)}
@@ -110,7 +110,7 @@ const pageDescription = 'description' in project
 		.project-gallery[data-project="field-pest-monitoring"] { grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr); gap: 16px; }
 		.project-gallery[data-project="field-pest-monitoring"] figure:first-child { grid-row: 1 / span 2; }
 		.project-gallery[data-project="game-design"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 18px; }
-		.project-gallery[data-project="game-design"] figure:nth-child(-n + 2) { grid-column: 1 / -1; }
+		.project-gallery[data-project="game-design"] figure:first-child { grid-column: 1 / -1; }
 	}
 	figure { margin: 0; }
 	.protected-image { position: relative; overflow: hidden; border: 1px solid #dadad6; border-radius: 8px; box-shadow: 0 14px 38px rgb(56 64 61 / 10%); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }

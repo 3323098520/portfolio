@@ -56,7 +56,7 @@ export const projects = [
   {
     slug: 'game-design',
     name: 'Game design',
-    description: '原创 FPS 策划案、五关浏览器原型与两份玩法系统分析。',
+    description: '原创 FPS 策划案、可玩原型与两份玩法系统分析。',
     repositoryUrl: 'https://github.com/3323098520/game-design-portfolio',
     demoUrl: 'https://3323098520.github.io/game-design-portfolio/04%20vertex-demo/',
     images: [
@@ -66,13 +66,6 @@ export const projects = [
         width: 1672,
         height: 941,
         caption: '原创 FPS《顶点射手》｜训练场视觉',
-      },
-      {
-        src: 'projects/game-design-overview.png',
-        alt: '游戏策划作品集线上总览页面',
-        width: 1440,
-        height: 960,
-        caption: '作品集总览｜策划案、Demo 与玩法分析',
       },
       {
         src: 'projects/game-design-delta.png',
