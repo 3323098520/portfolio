@@ -2,7 +2,7 @@
 import { projects } from '../../data/projects';
 
 export function getStaticPaths() {
-	return projects.filter((project) => !('externalUrl' in project)).map((project, index) => ({
+	return projects.map((project, index) => ({
 		params: { slug: project.slug },
 		props: { project, number: index + 1 },
 	}));
@@ -17,8 +17,12 @@ const projectImages = project.images.map((image) => ({
 	src: `${base}${image.src}`,
 }));
 const primaryImageUrl = `https://3323098520.github.io${projectImages[0].src}`;
-const showComingSoon = project.slug !== 'field-pest-monitoring';
-const pageDescription = showComingSoon ? `${project.name}。具体内容后续再补，敬请期待。` : project.name;
+const showComingSoon = !['field-pest-monitoring', 'game-design'].includes(project.slug);
+const pageDescription = 'description' in project
+	? project.description
+	: showComingSoon
+		? `${project.name}。具体内容后续再补，敬请期待。`
+		: project.name;
 ---
 
 <!doctype html>
@@ -40,16 +44,28 @@ const pageDescription = showComingSoon ? `${project.name}。具体内容后续�
 		<title>{project.name}｜暮春十九✨</title>
 	</head>
 	<body>
-		<main>
+		<main data-project={project.slug}>
 			<a class="back" href={`${base}#home`}>← 返回首页</a>
-			<p class="label">PROJECT 0{number}</p>
-			<h1>{project.name}</h1>
+			<header class="project-header">
+				<p class="label">PROJECT 0{number}</p>
+				<h1>{project.name}</h1>
+				{'description' in project && <p class="project-intro">{project.description}</p>}
+				{'demoUrl' in project && 'repositoryUrl' in project && (
+					<nav class="project-actions" aria-label="Game design 项目链接">
+						<a class="primary-action" href={project.demoUrl}>试玩五关 Demo ↗</a>
+						<a href={project.repositoryUrl}>查看 GitHub 仓库 ↗</a>
+					</nav>
+				)}
+			</header>
 			<div class="project-gallery" data-project={project.slug} aria-label="项目图片">
-				{projectImages.map((image) => (
+				{projectImages.map((image, index) => (
 					<figure>
 						<div class="protected-image">
 							<img src={image.src} alt={image.alt} width={image.width} height={image.height} draggable="false" />
 						</div>
+						{'caption' in image && (
+							<figcaption><span>0{index + 1}</span>{image.caption}</figcaption>
+						)}
 					</figure>
 				))}
 			</div>
@@ -77,19 +93,31 @@ const pageDescription = showComingSoon ? `${project.name}。具体内容后续�
 	:global(*) { box-sizing: border-box; }
 	:global(body) { margin: 0; color: #44494c; background: #fdfdfb; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
 	main { width: min(760px, calc(100% - 40px)); min-height: 100vh; margin: 0 auto; padding: 72px 0; }
+	main[data-project="game-design"] { width: min(1040px, calc(100% - 40px)); }
 	.back { display: inline-block; margin-bottom: 72px; color: #777b7c; font-size: 0.84rem; text-decoration: none; }
 	.back:hover { color: #7b5840; }
+	.project-header { padding-bottom: 4px; }
 	.label { margin: 0 0 14px; color: #8e745f; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; }
 	h1 { max-width: 680px; margin: 0; color: #3e4346; font-family: Georgia, "Songti SC", "SimSun", serif; font-size: clamp(2rem, 7vw, 3.4rem); line-height: 1.3; }
+	.project-intro { max-width: 650px; margin: 18px 0 0; color: #74797a; font-size: 1rem; line-height: 1.8; }
+	.project-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+	.project-actions a { padding: 10px 14px; border: 1px solid #d1d2ce; color: #555b5d; font-size: 0.82rem; text-decoration: none; }
+	.project-actions a:hover { color: #7b5840; border-color: #bba28f; }
+	.project-actions .primary-action { color: #f8f8f5; border-color: #485052; background: #485052; }
+	.project-actions .primary-action:hover { color: #fff; border-color: #7b5840; background: #7b5840; }
 	.project-gallery { display: grid; gap: 32px; margin-top: 40px; }
 	@media (min-width: 700px) {
 		.project-gallery[data-project="field-pest-monitoring"] { grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr); gap: 16px; }
 		.project-gallery[data-project="field-pest-monitoring"] figure:first-child { grid-row: 1 / span 2; }
+		.project-gallery[data-project="game-design"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 18px; }
+		.project-gallery[data-project="game-design"] figure:nth-child(-n + 2) { grid-column: 1 / -1; }
 	}
 	figure { margin: 0; }
 	.protected-image { position: relative; overflow: hidden; border: 1px solid #dadad6; border-radius: 8px; box-shadow: 0 14px 38px rgb(56 64 61 / 10%); user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 	.protected-image::after { content: "仅供作品集展示 · 禁止转载"; position: absolute; right: 12px; bottom: 10px; padding: 5px 9px; border-radius: 4px; color: rgb(255 255 255 / 88%); background: rgb(20 28 31 / 48%); font-size: 0.68rem; letter-spacing: 0.06em; pointer-events: none; }
 	.protected-image img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
+	figcaption { display: flex; gap: 12px; align-items: baseline; margin-top: 12px; color: #4f5557; font-family: Georgia, "Songti SC", "SimSun", serif; font-size: 0.95rem; }
+	figcaption span { color: #a08d7f; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 0.7rem; }
 	.coming-soon { margin: 30px 0 0; padding-top: 24px; border-top: 1px solid #dadad6; color: #858887; line-height: 1.8; }
 	@media print { .project-gallery { display: none; } }
 	@media (max-width: 560px) { main { width: min(100% - 28px, 760px); padding-top: 38px; } .back { margin-bottom: 48px; } }
