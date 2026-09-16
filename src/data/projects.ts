@@ -56,7 +56,9 @@ export const projects = [
   {
     slug: 'game-design',
     name: 'Game design',
+    description: '原创 FPS 策划案、五关浏览器原型与两份玩法系统分析。',
     externalUrl: 'https://github.com/3323098520/game-design-portfolio',
+    previewUrl: 'https://3323098520.github.io/game-design-portfolio/04%20vertex-demo/',
     images: [],
   },
 ] as const;
